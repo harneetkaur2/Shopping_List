@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<style>
+.border-class
+{
+  border:thin blue solid;
+  border-bottom:4px solid darkblueblue;
+  margin:10px;
+  padding:20px;
+}
+.container
+{
+width:650px;
+border: 3px solid darkblue;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script>		
+	$(document).ready(function(){	
+		     
+			$('.add-row').click(function() {
+             if(form_validate()){
+		 var product = $("#product").val(); 
+		 var quantity = $("#quantity").val();
+			
+            $("table tbody").append("<tr><td>" + product + "</td><td>" + quantity + " lb</td><td><button  class='remove-row' name='delete' value='REMOVE' >REMOVE</button></td></tr>");
+			formClear();
+			}
+		else {
+		
+		return false;
+		}
+		
+		});
+		
+    	$("table tbody").on("click", ".remove-row", function (event) {
+		if(confirm("Are you sure you want to delete this?")){
+        $(this).closest("tr").remove();       
+        
+    }
+	else{
+		
+	return false;
+	}
+	
+	});
+
+	});
+	function form_validate(){
+	
+        if (document.forms["formadd"]["product"].value=="") 
+		{
+		alert("Product field should not be empty");
+		return false;
+		
+		}
+		
+	     if(!(document.forms["formadd"]["quantity"].value=="" ) ) 
+		{
+		if (isNaN(document.forms["formadd"]["quantity"].value))
+		{
+		alert("Enter numbers only");
+		return false;
+		}
+		}
+		else
+		{
+            alert("Quantity cannot be empty");
+			return false;
+			
+		}	
+		return true;
+		}
+		
+				
+		function formClear() {
+  $("#product").val("");
+  $("#quantity").val("");
+}
+
+
+</script>
+<body>
+<div class="container">
+<h1 style="color:#00008B;text-align:center;" >SHOPPING LIST</h1>
+<form  class= "form-inline border-class" id= "formadd"  method="POST"  >
+  <div class="form-group">
+    <label for="product" style="color:#00008B">Product:</label>
+    <input type="text" class="form-control" id="product" name= "product" >
+  </div>
+  <div class="form-group">
+    <label for="quantity" style="color:#00008B">Quantity:</label>
+    <input type="text" class="form-control" id="quantity" name= "quantity">
+  </div>
+  <input type="button" class="btn btn-default add-row " value="ADD"   ></button>
+</form> 
+
+<table class="table table-hover table-bordered">
+<thead>
+<tr>
+<th style="color:#00008B">Product</th>
+<th style="color:#00008B">Quantity</th>
+<th style="color:#00008B">Remove</th>
+</tr>
+</thead>
+<tbody id="tbody">
+ </tbody>
+</table>
+</div>
+</body>
+</html>
